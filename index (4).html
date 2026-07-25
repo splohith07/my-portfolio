@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabir Sethi — Web Development Studio</title>
+<style>
+  :root{
+    --bg:#0D0D0C;
+    --bg-2:#151513;
+    --bronze:#B8875B;
+    --bronze-dim:#8A6642;
+    --offwhite:#F5F3EF;
+    --grey:#8C8880;
+    --line: rgba(245,243,239,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--offwhite);
+    font-family:'Inter', Arial, sans-serif;
+    line-height:1.65;
+  }
+  h1,h2,h3,.display{
+    font-family:'Playfair Display','Georgia',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  .label{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.16em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1140px; margin:0 auto; padding:0 32px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(13,13,12,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1140px; margin:0 auto; padding:26px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{font-size:1.15rem;}
+  .brand .dot{color:var(--bronze);}
+  .nav-links{display:flex; gap:36px; font-size:0.85rem; color:var(--grey);}
+  .nav-links a:hover{color:var(--offwhite);}
+  .nav-cta{
+    border:1px solid var(--bronze); color:var(--bronze); padding:10px 22px;
+    font-size:0.82rem; letter-spacing:0.04em; transition:all 0.25s;
+  }
+  .nav-cta:hover{background:var(--bronze); color:var(--bg);}
+  .ham{display:none; background:none; border:none; flex-direction:column; gap:5px;}
+  .ham span{width:22px; height:1px; background:var(--offwhite);}
+
+  /* HERO */
+  .hero{padding:150px 0 110px; position:relative; overflow:hidden;}
+  .hero-bg-word{
+    position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+    font-family:'Playfair Display',serif; font-size:clamp(6rem,22vw,15rem);
+    color:transparent; -webkit-text-stroke:1px var(--line);
+    white-space:nowrap; z-index:0; pointer-events:none; user-select:none;
+  }
+  .hero-content{position:relative; z-index:1; text-align:center;}
+  .avail-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--line); padding:8px 18px; border-radius:40px;
+    font-size:0.78rem; color:var(--grey); margin-bottom:36px;
+  }
+  .avail-dot{width:6px; height:6px; border-radius:50%; background:var(--bronze);}
+  .hero h1{
+    font-size:clamp(2.6rem,6.4vw,4.6rem); line-height:1.1; max-width:900px; margin:0 auto;
+  }
+  .hero h1 em{font-style:italic; color:var(--bronze);}
+  .hero p.lede{
+    max-width:520px; margin:28px auto 0; color:var(--grey); font-size:1.05rem;
+  }
+  .hero-actions{display:flex; gap:18px; justify-content:center; margin-top:42px; flex-wrap:wrap;}
+  .btn-bronze, .btn-outline{
+    padding:15px 30px; font-size:0.9rem; letter-spacing:0.03em; transition:all 0.25s;
+  }
+  .btn-bronze{background:var(--bronze); color:var(--bg);}
+  .btn-bronze:hover{background:var(--offwhite);}
+  .btn-outline{border:1px solid var(--line); color:var(--offwhite);}
+  .btn-outline:hover{border-color:var(--bronze); color:var(--bronze);}
+
+  /* SECTION HEAD */
+  .section-head{text-align:center; margin-bottom:64px;}
+  .section-head .label{color:var(--bronze); margin-bottom:16px;}
+  .section-head h2{font-size:clamp(1.8rem,3.6vw,2.8rem); max-width:600px; margin:0 auto;}
+
+  section{padding:110px 0;}
+  section.tight{padding-top:0;}
+
+  /* WORK — refined list */
+  .work-list{border-top:1px solid var(--line);}
+  .work-row{
+    display:grid; grid-template-columns:80px 1fr 1fr auto;
+    align-items:center; gap:32px; padding:38px 0;
+    border-bottom:1px solid var(--line);
+    transition:opacity 0.25s;
+  }
+  .work-row:hover{opacity:0.7;}
+  .work-index{font-family:'Playfair Display',serif; font-style:italic; color:var(--bronze-dim); font-size:1rem;}
+  .work-name{font-size:1.7rem;}
+  .work-meta{color:var(--grey); font-size:0.9rem;}
+  .work-meta .tagline{display:block; margin-top:4px; font-size:0.85rem;}
+  .work-arrow{font-size:1.3rem; color:var(--bronze);}
+
+  /* Expanded detail cards below list */
+  .work-details{margin-top:70px; display:flex; flex-direction:column; gap:70px;}
+  .detail{display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:center;}
+  .detail-visual{
+    aspect-ratio:16/11; background:var(--bg-2); border:1px solid var(--line);
+    display:flex; flex-direction:column; justify-content:center; gap:14px; padding:30px;
+  }
+  .d-bar{height:8px; background:rgba(245,243,239,0.06); border-radius:1px;}
+  .d-swatches{display:flex; gap:8px; margin-top:6px;}
+  .d-sw{width:20px; height:20px; border-radius:2px;}
+  .detail-body .label{color:var(--bronze); margin-bottom:14px;}
+  .detail-body h3{font-size:1.9rem; margin-bottom:12px;}
+  .detail-body p.summary{color:var(--grey); margin-bottom:22px; max-width:460px;}
+  .detail-stack{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px;}
+  .d-tag{font-size:0.76rem; color:var(--grey); border:1px solid var(--line); padding:5px 12px; border-radius:20px;}
+  .detail-links{display:flex; gap:26px; font-size:0.88rem;}
+  .detail-links a{border-bottom:1px solid var(--bronze); padding-bottom:2px;}
+  .detail-links a:hover{color:var(--bronze);}
+
+  /* SERVICES / TIERS — premium framing */
+  .tiers{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line);}
+  .tier{padding:44px 34px; border-right:1px solid var(--line); position:relative;}
+  .tier:last-child{border-right:none;}
+  .tier.featured{background:var(--bg-2);}
+  .tier-flag{
+    position:absolute; top:-1px; right:-1px; background:var(--bronze); color:var(--bg);
+    font-size:0.68rem; padding:5px 12px;
+  }
+  .tier h3{font-size:1.3rem; margin-bottom:8px;}
+  .tier .price{font-family:'Playfair Display',serif; font-size:2.1rem; color:var(--bronze); margin:16px 0;}
+  .tier .price span{font-size:0.9rem; color:var(--grey); font-family:'Inter',sans-serif;}
+  .tier ul{list-style:none; margin:24px 0; display:flex; flex-direction:column; gap:12px;}
+  .tier li{font-size:0.88rem; color:var(--grey); padding-left:18px; position:relative;}
+  .tier li::before{content:'—'; position:absolute; left:0; color:var(--bronze);}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+  .about p{color:var(--grey); margin-bottom:18px; max-width:460px;}
+  .cred-list{display:flex; flex-direction:column;}
+  .cred-row{display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid var(--line); font-size:0.92rem;}
+  .cred-row span:last-child{color:var(--bronze);}
+
+  /* CONTACT */
+  .contact{text-align:center;}
+  .contact h2{font-size:clamp(2rem,5vw,3.4rem); max-width:680px; margin:0 auto 20px;}
+  .contact p{color:var(--grey); max-width:460px; margin:0 auto 40px;}
+  .contact-actions{display:flex; gap:18px; justify-content:center; flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0; text-align:center; color:var(--grey); font-size:0.82rem;}
+
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    .ham{display:flex;}
+    .hero{padding:110px 0 80px;}
+    .work-row{grid-template-columns:36px 1fr; row-gap:6px;}
+    .work-meta{grid-column:2; }
+    .work-arrow{display:none;}
+    .detail{grid-template-columns:1fr; gap:28px;}
+    .tiers{grid-template-columns:1fr;}
+    .tier{border-right:none; border-bottom:1px solid var(--line);}
+    .tier:last-child{border-bottom:none;}
+    .about-grid{grid-template-columns:1fr; gap:36px;}
+    section{padding:80px 0;}
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Kabir Sethi<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Enquire</a>
+    <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-word">PORTFOLIO</div>
+  <div class="wrap hero-content">
+    <div class="avail-badge"><span class="avail-dot"></span> Currently accepting new projects</div>
+    <h1>Considered web development, for businesses that want to <em>look like</em> the choice, not an option.</h1>
+    <p class="lede">Four builds below — a reservation site, a membership platform, a storefront, and a finance app — each solving one clear business problem end to end.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-bronze">View selected work</a>
+      <a href="#contact" class="btn-outline">Start an enquiry</a>
+    </div>
+  </div>
+</section>
+
+<section class="tight" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">Selected work</div>
+      <h2>Four builds, four business problems solved.</h2>
+    </div>
+
+    <div class="work-list">
+      <div class="work-row">
+        <div class="work-index">01</div>
+        <div class="work-name">Amara</div>
+        <div class="work-meta">Restaurant<span class="tagline">Reservation-first dining site</span></div>
+        <div class="work-arrow">→</div>
+      </div>
+      <div class="work-row">
+        <div class="work-index">02</div>
+        <div class="work-name">PulseFit</div>
+        <div class="work-meta">Gym &amp; Studio<span class="tagline">Class scheduling &amp; membership</span></div>
+        <div class="work-arrow">→</div>
+      </div>
+      <div class="work-row">
+        <div class="work-index">03</div>
+        <div class="work-name">Studio Goods</div>
+        <div class="work-meta">E-commerce<span class="tagline">Storefront with cart &amp; checkout</span></div>
+        <div class="work-arrow">→</div>
+      </div>
+      <div class="work-row">
+        <div class="work-index">04</div>
+        <div class="work-name">Ledger</div>
+        <div class="work-meta">Web application<span class="tagline">Finance tracking &amp; data visualization</span></div>
+        <div class="work-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="work-details">
+
+      <div class="detail">
+        <div class="detail-visual">
+          <div class="d-bar" style="width:70%"></div>
+          <div class="d-bar" style="width:45%"></div>
+          <div class="d-bar" style="width:85%"></div>
+          <div class="d-swatches">
+            <div class="d-sw" style="background:#0D0D0C"></div>
+            <div class="d-sw" style="background:#B8875B"></div>
+            <div class="d-sw" style="background:#F5F3EF"></div>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="label">01 — Restaurant</div>
+          <h3>Amara</h3>
+          <p class="summary">Guests had to call during service hours to book a table. Built a validated reservation flow, categorized menu, and a photo gallery that sells the room before anyone arrives.</p>
+          <div class="detail-stack">
+            <span class="d-tag">HTML/CSS/JS</span>
+            <span class="d-tag">Form validation</span>
+            <span class="d-tag">Lightbox gallery</span>
+          </div>
+          <div class="detail-links">
+            <a href="#">Live site ↗</a>
+            <a href="#">Source ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-visual">
+          <div class="d-bar" style="width:55%"></div>
+          <div class="d-bar" style="width:80%"></div>
+          <div class="d-bar" style="width:35%"></div>
+          <div class="d-swatches">
+            <div class="d-sw" style="background:#151513"></div>
+            <div class="d-sw" style="background:#8A6642"></div>
+            <div class="d-sw" style="background:#F5F3EF"></div>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="label">02 — Gym &amp; Studio</div>
+          <h3>PulseFit</h3>
+          <p class="summary">Front desk was fielding every class booking by phone. Built a weekly class grid with per-slot reservations, trainer profiles, and tiered membership pricing.</p>
+          <div class="detail-stack">
+            <span class="d-tag">Responsive grid</span>
+            <span class="d-tag">Booking logic</span>
+            <span class="d-tag">Pricing tiers</span>
+          </div>
+          <div class="detail-links">
+            <a href="#">Live site ↗</a>
+            <a href="#">Source ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-visual">
+          <div class="d-bar" style="width:65%"></div>
+          <div class="d-bar" style="width:40%"></div>
+          <div class="d-bar" style="width:90%"></div>
+          <div class="d-swatches">
+            <div class="d-sw" style="background:#F5F3EF"></div>
+            <div class="d-sw" style="background:#B8875B"></div>
+            <div class="d-sw" style="background:#0D0D0C"></div>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="label">03 — E-commerce</div>
+          <h3>Studio Goods</h3>
+          <p class="summary">A lifestyle brand wanted to sell online without a heavyweight platform. Built product listings, detail pages, a persistent cart, and a full mock checkout flow.</p>
+          <div class="detail-stack">
+            <span class="d-tag">React</span>
+            <span class="d-tag">Cart state</span>
+            <span class="d-tag">Checkout flow</span>
+          </div>
+          <div class="detail-links">
+            <a href="#">Live site ↗</a>
+            <a href="#">Source ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-visual">
+          <div class="d-bar" style="width:50%"></div>
+          <div class="d-bar" style="width:75%"></div>
+          <div class="d-bar" style="width:60%"></div>
+          <div class="d-swatches">
+            <div class="d-sw" style="background:#0D0D0C"></div>
+            <div class="d-sw" style="background:#F5F3EF"></div>
+            <div class="d-sw" style="background:#8A6642"></div>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="label">04 — Web Application</div>
+          <h3>Ledger</h3>
+          <p class="summary">Needed a simple, honest view of where money actually goes. Built full transaction CRUD, category filtering, and pie/trend charts summarizing spend over time.</p>
+          <div class="detail-stack">
+            <span class="d-tag">React</span>
+            <span class="d-tag">Data visualization</span>
+            <span class="d-tag">CRUD</span>
+          </div>
+          <div class="detail-links">
+            <a href="#">Live site ↗</a>
+            <a href="#">Source ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">Engagement</div>
+      <h2>Three ways to work together.</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Single Page</h3>
+        <div class="price">$600<span> / project</span></div>
+        <ul>
+          <li>One custom page, fully responsive</li>
+          <li>Contact or enquiry form</li>
+          <li>Basic on-page SEO</li>
+          <li>1 round of revisions</li>
+        </ul>
+        <a href="#contact" class="btn-outline" style="display:inline-block;">Enquire</a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-flag">Most chosen</div>
+        <h3>Full Site</h3>
+        <div class="price">$1,800<span> / project</span></div>
+        <ul>
+          <li>Up to 6 pages, fully responsive</li>
+          <li>Booking, gallery, or cart functionality</li>
+          <li>Domain &amp; hosting setup included</li>
+          <li>3 rounds of revisions</li>
+        </ul>
+        <a href="#contact" class="btn-bronze" style="display:inline-block;">Enquire</a>
+      </div>
+      <div class="tier">
+        <h3>Web Application</h3>
+        <div class="price">From $3,500</div>
+        <ul>
+          <li>Custom logic, database, and auth</li>
+          <li>Admin dashboard if needed</li>
+          <li>Scoped in a discovery call</li>
+          <li>Ongoing support available</li>
+        </ul>
+        <a href="#contact" class="btn-outline" style="display:inline-block;">Enquire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">About</div>
+      <h2>Built directly with the business, no agency layer between.</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Every engagement starts with the same question: what is this site supposed to make happen? A booking, a sale, a signup. Everything else — the design, the code, the copy — serves that one outcome.</p>
+        <p>Projects ship responsive, fast, and handed off with documentation a future developer could pick up without a single guess.</p>
+      </div>
+      <div class="cred-list">
+        <div class="cred-row"><span>Frontend</span><span>HTML · CSS · JavaScript · React</span></div>
+        <div class="cred-row"><span>Data &amp; state</span><span>Context API · Firebase · Supabase</span></div>
+        <div class="cred-row"><span>Hosting</span><span>Vercel · Netlify</span></div>
+        <div class="cred-row"><span>Tools</span><span>Git · Figma · DevTools</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label" style="color:var(--bronze); margin-bottom:20px;">Get in touch</div>
+    <h2>Have a site that needs building?</h2>
+    <p>Tell me what the site needs to accomplish — more bookings, more sales, or simply more trust — and you'll get a clear scope and price back within a day.</p>
+    <div class="contact-actions">
+      <a href="mailto:hello@kabirsethi.dev" class="btn-bronze">hello@kabirsethi.dev</a>
+      <a href="#" class="btn-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Kabir Sethi — Web Development Studio</footer>
+
+</body>
+</html>
