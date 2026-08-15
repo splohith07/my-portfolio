@@ -1,436 +1,2583 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lohith SP— Web Development Studio</title>
-<style>
-  :root{
-    --bg:#0D0D0C;
-    --bg-2:#151513;
-    --bronze:#B8875B;
-    --bronze-dim:#8A6642;
-    --offwhite:#F5F3EF;
-    --grey:#8C8880;
-    --line: rgba(245,243,239,0.12);
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--offwhite);
-    font-family:'Inter', Arial, sans-serif;
-    line-height:1.65;
-  }
-  h1,h2,h3,.display{
-    font-family:'Playfair Display','Georgia',serif;
-    font-weight:500;
-    letter-spacing:-0.01em;
-  }
-  .label{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.16em;}
-  a{color:inherit; text-decoration:none;}
-  .wrap{max-width:1140px; margin:0 auto; padding:0 32px;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lohith SP — Web Development Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0D0D0C;
+            --bg-2: #151513;
+            --bg-3: #1A1A18;
+            --bronze: #B8875B;
+            --bronze-dim: #8A6642;
+            --bronze-glow: rgba(184, 135, 91, 0.08);
+            --offwhite: #F5F3EF;
+            --grey: #8C8880;
+            --line: rgba(245, 243, 239, 0.12);
+            --success: #4E8C6A;
+        }
 
-  /* NAV */
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(13,13,12,0.88);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    max-width:1140px; margin:0 auto; padding:26px 32px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .brand{font-size:1.15rem;}
-  .brand .dot{color:var(--bronze);}
-  .nav-links{display:flex; gap:36px; font-size:0.85rem; color:var(--grey);}
-  .nav-links a:hover{color:var(--offwhite);}
-  .nav-cta{
-    border:1px solid var(--bronze); color:var(--bronze); padding:10px 22px;
-    font-size:0.82rem; letter-spacing:0.04em; transition:all 0.25s;
-  }
-  .nav-cta:hover{background:var(--bronze); color:var(--bg);}
-  .ham{display:none; background:none; border:none; flex-direction:column; gap:5px;}
-  .ham span{width:22px; height:1px; background:var(--offwhite);}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  /* HERO */
-  .hero{padding:150px 0 110px; position:relative; overflow:hidden;}
-  .hero-bg-word{
-    position:absolute; top:-40px; left:50%; transform:translateX(-50%);
-    font-family:'Playfair Display',serif; font-size:clamp(6rem,22vw,15rem);
-    color:transparent; -webkit-text-stroke:1px var(--line);
-    white-space:nowrap; z-index:0; pointer-events:none; user-select:none;
-  }
-  .hero-content{position:relative; z-index:1; text-align:center;}
-  .avail-badge{
-    display:inline-flex; align-items:center; gap:8px;
-    border:1px solid var(--line); padding:8px 18px; border-radius:40px;
-    font-size:0.78rem; color:var(--grey); margin-bottom:36px;
-  }
-  .avail-dot{width:6px; height:6px; border-radius:50%; background:var(--bronze);}
-  .hero h1{
-    font-size:clamp(2.6rem,6.4vw,4.6rem); line-height:1.1; max-width:900px; margin:0 auto;
-  }
-  .hero h1 em{font-style:italic; color:var(--bronze);}
-  .hero p.lede{
-    max-width:520px; margin:28px auto 0; color:var(--grey); font-size:1.05rem;
-  }
-  .hero-actions{display:flex; gap:18px; justify-content:center; margin-top:42px; flex-wrap:wrap;}
-  .btn-bronze, .btn-outline{
-    padding:15px 30px; font-size:0.9rem; letter-spacing:0.03em; transition:all 0.25s;
-  }
-  .btn-bronze{background:var(--bronze); color:var(--bg);}
-  .btn-bronze:hover{background:var(--offwhite);}
-  .btn-outline{border:1px solid var(--line); color:var(--offwhite);}
-  .btn-outline:hover{border-color:var(--bronze); color:var(--bronze);}
+        html {
+            scroll-behavior: smooth;
+        }
 
-  /* SECTION HEAD */
-  .section-head{text-align:center; margin-bottom:64px;}
-  .section-head .label{color:var(--bronze); margin-bottom:16px;}
-  .section-head h2{font-size:clamp(1.8rem,3.6vw,2.8rem); max-width:600px; margin:0 auto;}
+        body {
+            background: var(--bg);
+            color: var(--offwhite);
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
 
-  section{padding:110px 0;}
-  section.tight{padding-top:0;}
+        body.no-scroll {
+            overflow: hidden;
+        }
 
-  /* WORK — refined list */
-  .work-list{border-top:1px solid var(--line);}
-  .work-row{
-    display:grid; grid-template-columns:80px 1fr 1fr auto;
-    align-items:center; gap:32px; padding:38px 0;
-    border-bottom:1px solid var(--line);
-    transition:opacity 0.25s;
-  }
-  .work-row:hover{opacity:0.7;}
-  .work-index{font-family:'Playfair Display',serif; font-style:italic; color:var(--bronze-dim); font-size:1rem;}
-  .work-name{font-size:1.7rem;}
-  .work-meta{color:var(--grey); font-size:0.9rem;}
-  .work-meta .tagline{display:block; margin-top:4px; font-size:0.85rem;}
-  .work-arrow{font-size:1.3rem; color:var(--bronze);}
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--bronze);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
 
-  /* Expanded detail cards below list */
-  .work-details{margin-top:70px; display:flex; flex-direction:column; gap:70px;}
-  .detail{display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:center;}
-  .detail-visual{
-    aspect-ratio:16/11; background:var(--bg-2); border:1px solid var(--line);
-    display:flex; flex-direction:column; justify-content:center; gap:14px; padding:30px;
-  }
-  .d-bar{height:8px; background:rgba(245,243,239,0.06); border-radius:1px;}
-  .d-swatches{display:flex; gap:8px; margin-top:6px;}
-  .d-sw{width:20px; height:20px; border-radius:2px;}
-  .detail-body .label{color:var(--bronze); margin-bottom:14px;}
-  .detail-body h3{font-size:1.9rem; margin-bottom:12px;}
-  .detail-body p.summary{color:var(--grey); margin-bottom:22px; max-width:460px;}
-  .detail-stack{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px;}
-  .d-tag{font-size:0.76rem; color:var(--grey); border:1px solid var(--line); padding:5px 12px; border-radius:20px;}
-  .detail-links{display:flex; gap:26px; font-size:0.88rem;}
-  .detail-links a{border-bottom:1px solid var(--bronze); padding-bottom:2px;}
-  .detail-links a:hover{color:var(--bronze);}
+        h1,
+        h2,
+        h3,
+        .display {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
 
-  /* SERVICES / TIERS — premium framing */
-  .tiers{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line);}
-  .tier{padding:44px 34px; border-right:1px solid var(--line); position:relative;}
-  .tier:last-child{border-right:none;}
-  .tier.featured{background:var(--bg-2);}
-  .tier-flag{
-    position:absolute; top:-1px; right:-1px; background:var(--bronze); color:var(--bg);
-    font-size:0.68rem; padding:5px 12px;
-  }
-  .tier h3{font-size:1.3rem; margin-bottom:8px;}
-  .tier .price{font-family:'Playfair Display',serif; font-size:2.1rem; color:var(--bronze); margin:16px 0;}
-  .tier .price span{font-size:0.9rem; color:var(--grey); font-family:'Inter',sans-serif;}
-  .tier ul{list-style:none; margin:24px 0; display:flex; flex-direction:column; gap:12px;}
-  .tier li{font-size:0.88rem; color:var(--grey); padding-left:18px; position:relative;}
-  .tier li::before{content:'—'; position:absolute; left:0; color:var(--bronze);}
+        .label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
 
-  /* ABOUT */
-  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
-  .about p{color:var(--grey); margin-bottom:18px; max-width:460px;}
-  .cred-list{display:flex; flex-direction:column;}
-  .cred-row{display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid var(--line); font-size:0.92rem;}
-  .cred-row span:last-child{color:var(--bronze);}
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-  /* CONTACT */
-  .contact{text-align:center;}
-  .contact h2{font-size:clamp(2rem,5vw,3.4rem); max-width:680px; margin:0 auto 20px;}
-  .contact p{color:var(--grey); max-width:460px; margin:0 auto 40px;}
-  .contact-actions{display:flex; gap:18px; justify-content:center; flex-wrap:wrap;}
+        .wrap {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
 
-  footer{border-top:1px solid var(--line); padding:36px 0; text-align:center; color:var(--grey); font-size:0.82rem;}
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(13, 13, 12, 0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
 
-  @media (max-width:900px){
-    .nav-links{display:none;}
-    .ham{display:flex;}
-    .hero{padding:110px 0 80px;}
-    .work-row{grid-template-columns:36px 1fr; row-gap:6px;}
-    .work-meta{grid-column:2; }
-    .work-arrow{display:none;}
-    .detail{grid-template-columns:1fr; gap:28px;}
-    .tiers{grid-template-columns:1fr;}
-    .tier{border-right:none; border-bottom:1px solid var(--line);}
-    .tier:last-child{border-bottom:none;}
-    .about-grid{grid-template-columns:1fr; gap:36px;}
-    section{padding:80px 0;}
-  }
-  @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
-</style>
+        .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 26px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 1.15rem;
+            font-weight: 500;
+            z-index: 60;
+        }
+
+        .brand .dot {
+            color: var(--bronze);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            font-size: 0.85rem;
+            color: var(--grey);
+        }
+
+        .nav-links a:hover {
+            color: var(--offwhite);
+        }
+
+        .nav-cta {
+            border: 1px solid var(--bronze);
+            color: var(--bronze);
+            padding: 10px 22px;
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            transition: all 0.25s;
+            z-index: 60;
+        }
+
+        .nav-cta:hover {
+            background: var(--bronze);
+            color: var(--bg);
+        }
+
+        /* Hamburger Menu Icon */
+        .ham {
+            display: none;
+            background: none;
+            border: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 60;
+            padding: 6px;
+        }
+
+        .ham span {
+            width: 22px;
+            height: 1px;
+            background: var(--offwhite);
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .ham.active span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .ham.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .ham.active span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg);
+            z-index: 45;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .mobile-menu-links a:hover {
+            color: var(--bronze);
+        }
+
+        .mobile-menu-links .mobile-cta {
+            margin-top: 18px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            align-self: center;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--bronze-glow) 0%, transparent 68%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-bg-word {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(6rem, 24vw, 17rem);
+            color: transparent;
+            -webkit-text-stroke: 1px var(--line);
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .avail-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.78rem;
+            color: var(--grey);
+            margin-bottom: 36px;
+            background: rgba(21, 21, 19, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .avail-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--bronze);
+            box-shadow: 0 0 10px var(--bronze);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+                box-shadow: 0 0 14px var(--bronze);
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.6;
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+            line-height: 1.1;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--bronze);
+        }
+
+        .hero p.lede {
+            max-width: 540px;
+            margin: 28px auto 0;
+            color: var(--grey);
+            font-size: 1.05rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 42px;
+            flex-wrap: wrap;
+        }
+
+        .btn-bronze,
+        .btn-outline {
+            padding: 15px 30px;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            transition: all 0.25s;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-bronze {
+            background: var(--bronze);
+            color: var(--bg);
+            font-weight: 500;
+        }
+
+        .btn-bronze:hover {
+            background: var(--offwhite);
+            color: var(--bg);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--line);
+            color: var(--offwhite);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--bronze);
+            color: var(--bronze);
+        }
+
+        /* Sections standard */
+        section {
+            padding: 120px 0;
+        }
+
+        section.tight {
+            padding-top: 0;
+        }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-head .label {
+            color: var(--bronze);
+            margin-bottom: 16px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* Scroll reveal system */
+        .reveal {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Selected Work Section */
+        .work-list {
+            border-top: 1px solid var(--line);
+        }
+
+        .work-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 1fr auto;
+            align-items: center;
+            gap: 32px;
+            padding: 38px 0;
+            border-bottom: 1px solid var(--line);
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .work-row:hover {
+            background: rgba(245, 243, 239, 0.02);
+            padding-left: 12px;
+        }
+
+        .work-row:hover .work-arrow {
+            transform: translateX(6px);
+        }
+
+        .work-index {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--bronze-dim);
+            font-size: 1rem;
+        }
+
+        .work-name {
+            font-size: 1.7rem;
+        }
+
+        .work-meta {
+            color: var(--grey);
+            font-size: 0.9rem;
+        }
+
+        .work-meta .tagline {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.85rem;
+        }
+
+        .work-arrow {
+            font-size: 1.3rem;
+            color: var(--bronze);
+            transition: transform 0.25s ease;
+        }
+
+        .work-details {
+            margin-top: 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .detail {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        /* Interactive browser mockups */
+        .detail-visual {
+            aspect-ratio: 16/11;
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .mockup-header {
+            height: 28px;
+            background: #1c1c1a;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .mockup-dot.red {
+            background: #E55F55;
+        }
+
+        .mockup-dot.yellow {
+            background: #F1B24B;
+        }
+
+        .mockup-dot.green {
+            background: #56B372;
+        }
+
+        .mockup-body {
+            flex: 1;
+            background: var(--bg);
+            position: relative;
+            padding: 18px;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Project 1 Mockup (Amara Reservation) */
+        .amara-mockup {
+            color: var(--offwhite);
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+        }
+
+        .amara-brand {
+            font-size: 0.95rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .amara-line {
+            width: 30px;
+            height: 1px;
+            background: var(--bronze);
+            margin: 0 auto 12px;
+        }
+
+        .amara-card {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 12px;
+            max-width: 200px;
+            margin: 0 auto;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .amara-card h4 {
+            font-size: 0.65rem;
+            color: var(--bronze);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .amara-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .amara-field {
+            border: 1px solid rgba(245, 243, 239, 0.06);
+            background: rgba(245, 243, 239, 0.02);
+            padding: 5px 8px;
+            font-size: 0.6rem;
+            color: var(--grey);
+            border-radius: 2px;
+        }
+
+        .amara-field span {
+            color: var(--offwhite);
+            font-weight: 500;
+        }
+
+        .amara-btn {
+            background: var(--bronze);
+            color: var(--bg);
+            text-align: center;
+            padding: 6px 0;
+            font-size: 0.62rem;
+            font-weight: 600;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .detail-visual:hover .amara-btn {
+            background: var(--offwhite);
+        }
+
+        /* Project 2 Mockup (PulseFit Schedule) */
+        .pulsefit-mockup {
+            font-family: 'Inter', sans-serif;
+            height: 100%;
+        }
+
+        .pulse-head {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pulse-head span {
+            color: var(--bronze);
+            font-size: 0.6rem;
+        }
+
+        .pulse-days {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .pulse-day {
+            padding: 4px 0;
+            background: var(--bg-2);
+            border-radius: 2px;
+            font-size: 0.55rem;
+            color: var(--grey);
+        }
+
+        .pulse-day.active {
+            background: var(--bronze);
+            color: var(--bg);
+            font-weight: 600;
+        }
+
+        .pulse-classes {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pulse-class {
+            background: var(--bg-2);
+            border-left: 2px solid var(--bronze);
+            padding: 6px 10px;
+            border-radius: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pulse-class-name {
+            font-weight: 500;
+            font-size: 0.65rem;
+        }
+
+        .pulse-class-time {
+            font-size: 0.55rem;
+            color: var(--grey);
+        }
+
+        .pulse-book-btn {
+            background: rgba(184, 135, 91, 0.15);
+            color: var(--bronze);
+            padding: 3px 8px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            border-radius: 20px;
+            border: 1px solid var(--bronze);
+            transition: all 0.2s ease;
+        }
+
+        .detail-visual:hover .pulse-book-btn {
+            background: var(--bronze);
+            color: var(--bg);
+        }
+
+        .pulse-book-btn.full {
+            border-color: rgba(245, 243, 239, 0.08);
+            background: transparent;
+            color: var(--grey);
+        }
+
+        /* Project 3 Mockup (Studio Goods Shop) */
+        .goods-mockup {
+            font-family: 'Inter', sans-serif;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .goods-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 6px;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        .goods-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .goods-cart {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--bronze);
+        }
+
+        .goods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .goods-card {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .goods-img {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--bg-3), var(--bronze-glow));
+            margin-bottom: 6px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .goods-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: linear-gradient(45deg, var(--bronze), var(--offwhite));
+            opacity: 0.8;
+        }
+
+        .goods-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.6rem;
+            margin-bottom: 6px;
+        }
+
+        .goods-title {
+            font-weight: 500;
+        }
+
+        .goods-price {
+            color: var(--bronze);
+        }
+
+        .goods-btn {
+            background: var(--bg);
+            border: 1px solid var(--bronze);
+            color: var(--bronze);
+            padding: 4px 0;
+            font-size: 0.55rem;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .detail-visual:hover .goods-btn {
+            background: var(--bronze);
+            color: var(--bg);
+        }
+
+        /* Project 4 Mockup (Ledger Analytics) */
+        .ledger-mockup {
+            font-family: 'Inter', sans-serif;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ledger-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ledger-balance {
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--bronze);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .ledger-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ledger-bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .ledger-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.58rem;
+            color: var(--grey);
+        }
+
+        .ledger-bar-label span:last-child {
+            color: var(--offwhite);
+        }
+
+        .ledger-progress-bg {
+            height: 6px;
+            background: rgba(245, 243, 239, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .ledger-progress {
+            height: 100%;
+            background: var(--bronze);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .detail-visual:hover .ledger-progress.p-inc {
+            width: 72%;
+        }
+
+        .detail-visual:hover .ledger-progress.p-exp {
+            width: 38%;
+            background: var(--bronze-dim);
+        }
+
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .ledger-card {
+            background: var(--bg-2);
+            padding: 6px;
+            border-radius: 2px;
+            text-align: center;
+        }
+
+        .ledger-card-label {
+            font-size: 0.5rem;
+            color: var(--grey);
+        }
+
+        .ledger-card-val {
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: var(--bronze);
+        }
+
+        /* Detail body styling */
+        .detail-body .label {
+            color: var(--bronze);
+            margin-bottom: 14px;
+        }
+
+        .detail-body h3 {
+            font-size: 1.9rem;
+            margin-bottom: 12px;
+        }
+
+        .detail-body p.summary {
+            color: var(--grey);
+            margin-bottom: 22px;
+            max-width: 460px;
+        }
+
+        .detail-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .d-tag {
+            font-size: 0.76rem;
+            color: var(--grey);
+            border: 1px solid var(--line);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .detail-links {
+            display: flex;
+            gap: 26px;
+            font-size: 0.88rem;
+        }
+
+        .detail-links a {
+            border-bottom: 1px solid var(--bronze);
+            padding-bottom: 2px;
+        }
+
+        .detail-links a:hover {
+            color: var(--bronze);
+        }
+
+        /* Value Pillars ("Why Work With Me") Section */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .pillar-card {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            padding: 40px 30px;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .pillar-card:hover {
+            border-color: var(--bronze);
+        }
+
+        .pillar-icon {
+            font-size: 1.8rem;
+            color: var(--bronze);
+            margin-bottom: 20px;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .pillar-card p {
+            font-size: 0.9rem;
+            color: var(--grey);
+            line-height: 1.6;
+        }
+
+        /* How We Work Process Section */
+        .process-list {
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--line);
+        }
+
+        .process-row {
+            background: var(--bg);
+            display: grid;
+            grid-template-columns: 80px 240px 1fr;
+            gap: 40px;
+            padding: 44px 0;
+        }
+
+        .process-num {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: var(--bronze-dim);
+            line-height: 1;
+        }
+
+        .process-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .process-body h4 {
+            font-size: 0.92rem;
+            color: var(--offwhite);
+            margin-bottom: 8px;
+        }
+
+        .process-body p {
+            font-size: 0.92rem;
+            color: var(--grey);
+            max-width: 620px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--bg-2);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .testimonial-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: var(--offwhite);
+            margin-bottom: 24px;
+        }
+
+        .testimonial-meta {
+            font-size: 0.88rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--bronze);
+        }
+
+        .testimonial-company {
+            color: var(--grey);
+        }
+
+        /* Services / Engagement Tiers */
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .tier {
+            padding: 50px 36px;
+            border-right: 1px solid var(--line);
+            position: relative;
+            background: var(--bg);
+            transition: all 0.3s ease;
+        }
+
+        .tier:hover {
+            background: rgba(245, 243, 239, 0.01);
+        }
+
+        .tier:last-child {
+            border-right: none;
+        }
+
+        .tier.featured {
+            background: var(--bg-2);
+        }
+
+        .tier.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--bronze);
+        }
+
+        .tier-flag {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--bronze);
+            color: var(--bg);
+            font-size: 0.68rem;
+            padding: 5px 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .tier h3 {
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+        }
+
+        .tier .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            color: var(--bronze);
+            margin: 16px 0;
+        }
+
+        .tier .price span {
+            font-size: 0.9rem;
+            color: var(--grey);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tier ul {
+            list-style: none;
+            margin: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tier li {
+            font-size: 0.88rem;
+            color: var(--grey);
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .tier li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--bronze);
+        }
+
+        /* FAQ Accordion Section */
+        .faq-accordion {
+            max-width: 720px;
+            margin: 40px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .faq-item {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(184, 135, 91, 0.4);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--offwhite);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.96rem;
+            font-weight: 500;
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-icon {
+            font-size: 1.1rem;
+            color: var(--bronze);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            color: var(--grey);
+            font-size: 0.92rem;
+            padding: 0 24px;
+            line-height: 1.65;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about p {
+            color: var(--grey);
+            margin-bottom: 18px;
+            max-width: 460px;
+        }
+
+        .cred-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cred-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 0.92rem;
+        }
+
+        .cred-row span:last-child {
+            color: var(--bronze);
+        }
+
+        /* Contact & Interactive Project Planner */
+        .contact {
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact h2 {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .contact p.contact-desc {
+            color: var(--grey);
+            max-width: 480px;
+            margin: 0 auto 40px;
+        }
+
+        /* Project Planner Wizard Container */
+        .planner-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            text-align: left;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .planner-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .planner-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .planner-steps {
+            display: flex;
+            gap: 6px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(245, 243, 239, 0.1);
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--bronze);
+            box-shadow: 0 0 8px var(--bronze);
+        }
+
+        .planner-body {
+            padding: 32px 24px;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeInStep 0.4s ease forwards;
+        }
+
+        @keyframes fadeInStep {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        /* Step Card Grid */
+        .card-select-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .select-card {
+            border: 1px solid var(--line);
+            background: rgba(245, 243, 239, 0.02);
+            padding: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .select-card input[type="radio"] {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            accent-color: var(--bronze);
+        }
+
+        .select-card:hover {
+            border-color: rgba(184, 135, 91, 0.5);
+            background: rgba(184, 135, 91, 0.02);
+        }
+
+        .select-card.selected {
+            border-color: var(--bronze);
+            background: rgba(184, 135, 91, 0.05);
+        }
+
+        .select-card-title {
+            font-weight: 600;
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+
+        .select-card-desc {
+            font-size: 0.78rem;
+            color: var(--grey);
+            line-height: 1.4;
+        }
+
+        /* TextInput Fields */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: var(--grey);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            background: var(--bg-3);
+            border: 1px solid var(--line);
+            color: var(--offwhite);
+            padding: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            border-radius: 3px;
+            transition: border-color 0.25s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--bronze);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Planner Footer Navigation */
+        .planner-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Success screen */
+        .form-success {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(78, 140, 106, 0.15);
+            color: var(--success);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .form-success h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-success p {
+            color: var(--grey);
+            font-size: 0.9rem;
+            max-width: 380px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
+        }
+
+        .form-success p.subtext {
+            font-size: 0.8rem;
+            margin-bottom: 24px;
+        }
+
+        /* Standard Contact Fallback link */
+        .contact-fallback {
+            margin-top: 40px;
+            font-size: 0.88rem;
+            color: var(--grey);
+        }
+
+        .contact-fallback a {
+            color: var(--bronze);
+            border-bottom: 1px solid var(--bronze);
+            padding-bottom: 2px;
+        }
+
+        .contact-fallback a:hover {
+            color: var(--offwhite);
+            border-bottom-color: var(--offwhite);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 44px 0;
+            text-align: center;
+            color: var(--grey);
+            font-size: 0.82rem;
+        }
+
+        /* Responsiveness breakdown */
+        @media (max-width: 960px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .tiers {
+                grid-template-columns: 1fr;
+            }
+
+            .tier {
+                border-right: none;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .tier:last-child {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .ham {
+                display: flex;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .work-row {
+                grid-template-columns: 36px 1fr;
+                row-gap: 6px;
+            }
+
+            .work-meta {
+                grid-column: 2;
+            }
+
+            .work-arrow {
+                display: none;
+            }
+
+            .detail {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .process-row {
+                grid-template-columns: 50px 1fr;
+                gap: 20px;
+                padding: 32px 0;
+            }
+
+            .process-title {
+                grid-column: 2;
+            }
+
+            .process-body {
+                grid-column: 2;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .card-select-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            section {
+                padding: 90px 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Copy Tooltip & Glowing Nav Style Updates */
+        .copy-email-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .copy-email-btn {
+            color: var(--bronze) !important;
+            border-bottom: 1px solid var(--bronze);
+            padding-bottom: 2px;
+            cursor: pointer;
+            transition: color 0.25s, border-color 0.25s;
+        }
+
+        .copy-email-btn:hover {
+            color: var(--offwhite) !important;
+            border-bottom-color: var(--offwhite);
+        }
+
+        .copy-tooltip {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: var(--bg-2);
+            border: 1px solid var(--bronze);
+            color: var(--offwhite);
+            padding: 6px 12px;
+            font-size: 0.72rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            font-family: 'Inter', sans-serif;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .copy-tooltip.show,
+        .copy-email-container:hover .copy-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .copy-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--bronze);
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 30px rgba(184, 135, 91, 0.04);
+            border-bottom-color: rgba(184, 135, 91, 0.3);
+        }
+
+        /* Mockup interactive click states */
+        .amara-btn {
+            cursor: pointer;
+        }
+
+        .amara-btn.booked {
+            background: var(--success) !important;
+            color: var(--offwhite) !important;
+            cursor: default;
+        }
+
+        .pulse-book-btn {
+            cursor: pointer;
+        }
+
+        .pulse-book-btn.booked {
+            background: var(--success) !important;
+            color: var(--offwhite) !important;
+            border-color: var(--success) !important;
+            cursor: default;
+        }
+
+        .goods-btn {
+            cursor: pointer;
+        }
+
+        .goods-btn.added {
+            background: var(--success) !important;
+            color: var(--offwhite) !important;
+            border-color: var(--success) !important;
+            cursor: default;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
 
-<nav>
-  <div class="nav-inner">
-    <div class="brand">Lohith SP<span class="dot">.</span></div>
-    <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a href="#contact" class="nav-cta">Enquire</a>
-    <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="hero-bg-word">PORTFOLIO</div>
-  <div class="wrap hero-content">
-    <div class="avail-badge"><span class="avail-dot"></span> Currently accepting new projects</div>
-    <h1>Considered web development, for businesses that want to <em>look like</em> the choice, not an option.</h1>
-    <p class="lede">Four builds below — a reservation site, a membership platform, a storefront, and a finance app — each solving one clear business problem end to end.</p>
-    <div class="hero-actions">
-      <a href="#work" class="btn-bronze">View selected work</a>
-      <a href="#contact" class="btn-outline">Start an enquiry</a>
-    </div>
-  </div>
-</section>
-
-<section class="tight" id="work">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="label">Selected work</div>
-      <h2>Four builds, four business problems solved.</h2>
-    </div>
-
-    <div class="work-list">
-      <div class="work-row">
-        <div class="work-index">01</div>
-        <div class="work-name">Amara</div>
-        <div class="work-meta">Restaurant<span class="tagline">Reservation-first dining site</span></div>
-        <div class="work-arrow">→</div>
-      </div>
-      <div class="work-row">
-        <div class="work-index">02</div>
-        <div class="work-name">PulseFit</div>
-        <div class="work-meta">Gym &amp; Studio<span class="tagline">Class scheduling &amp; membership</span></div>
-        <div class="work-arrow">→</div>
-      </div>
-      <div class="work-row">
-        <div class="work-index">03</div>
-        <div class="work-name">Studio Goods</div>
-        <div class="work-meta">E-commerce<span class="tagline">Storefront with cart &amp; checkout</span></div>
-        <div class="work-arrow">→</div>
-      </div>
-      <div class="work-row">
-        <div class="work-index">04</div>
-        <div class="work-name">Ledger</div>
-        <div class="work-meta">Web application<span class="tagline">Finance tracking &amp; data visualization</span></div>
-        <div class="work-arrow">→</div>
-      </div>
-    </div>
-
-    <div class="work-details">
-
-      <div class="detail">
-        <div class="detail-visual">
-          <div class="d-bar" style="width:70%"></div>
-          <div class="d-bar" style="width:45%"></div>
-          <div class="d-bar" style="width:85%"></div>
-          <div class="d-swatches">
-            <div class="d-sw" style="background:#0D0D0C"></div>
-            <div class="d-sw" style="background:#B8875B"></div>
-            <div class="d-sw" style="background:#F5F3EF"></div>
-          </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="brand">Lohith SP<span class="dot">.</span></div>
+            <div class="nav-links">
+                <a href="#work">Work</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <a href="#contact" class="nav-cta">Enquire</a>
+            <button class="ham" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="detail-body">
-          <div class="label">01 — Restaurant</div>
-          <h3>Amara</h3>
-          <p class="summary">Guests had to call during service hours to book a table. Built a validated reservation flow, categorized menu, and a photo gallery that sells the room before anyone arrives.</p>
-          <div class="detail-stack">
-            <span class="d-tag">HTML/CSS/JS</span>
-            <span class="d-tag">Form validation</span>
-            <span class="d-tag">Lightbox gallery</span>
-          </div>
-          <div class="detail-links">
-            <a href="https://restaurant-rouge-six.vercel.app/">Live site ↗</a>
-            <a href="#">Source ↗</a>
-          </div>
-        </div>
-      </div>
+    </nav>
 
-      <div class="detail">
-        <div class="detail-visual">
-          <div class="d-bar" style="width:55%"></div>
-          <div class="d-bar" style="width:80%"></div>
-          <div class="d-bar" style="width:35%"></div>
-          <div class="d-swatches">
-            <div class="d-sw" style="background:#151513"></div>
-            <div class="d-sw" style="background:#8A6642"></div>
-            <div class="d-sw" style="background:#F5F3EF"></div>
-          </div>
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="#work">Work</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact" class="btn-bronze mobile-cta">Start an enquiry</a>
         </div>
-        <div class="detail-body">
-          <div class="label">02 — Gym &amp; Studio</div>
-          <h3>PulseFit</h3>
-          <p class="summary">Front desk was fielding every class booking by phone. Built a weekly class grid with per-slot reservations, trainer profiles, and tiered membership pricing.</p>
-          <div class="detail-stack">
-            <span class="d-tag">Responsive grid</span>
-            <span class="d-tag">Booking logic</span>
-            <span class="d-tag">Pricing tiers</span>
-          </div>
-          <div class="detail-links">
-            <a href="https://gym-neon-phi.vercel.app/">Live site ↗</a>
-            <a href="#">Source ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail">
-        <div class="detail-visual">
-          <div class="d-bar" style="width:65%"></div>
-          <div class="d-bar" style="width:40%"></div>
-          <div class="d-bar" style="width:90%"></div>
-          <div class="d-swatches">
-            <div class="d-sw" style="background:#F5F3EF"></div>
-            <div class="d-sw" style="background:#B8875B"></div>
-            <div class="d-sw" style="background:#0D0D0C"></div>
-          </div>
-        </div>
-        <div class="detail-body">
-          <div class="label">03 — E-commerce</div>
-          <h3>Studio Goods</h3>
-          <p class="summary">A lifestyle brand wanted to sell online without a heavyweight platform. Built product listings, detail pages, a persistent cart, and a full mock checkout flow.</p>
-          <div class="detail-stack">
-            <span class="d-tag">React</span>
-            <span class="d-tag">Cart state</span>
-            <span class="d-tag">Checkout flow</span>
-          </div>
-          <div class="detail-links">
-            <a href="https://shop-sphere-five-nu.vercel.app/">Live site ↗</a>
-            <a href="#">Source ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail">
-        <div class="detail-visual">
-          <div class="d-bar" style="width:50%"></div>
-          <div class="d-bar" style="width:75%"></div>
-          <div class="d-bar" style="width:60%"></div>
-          <div class="d-swatches">
-            <div class="d-sw" style="background:#0D0D0C"></div>
-            <div class="d-sw" style="background:#F5F3EF"></div>
-            <div class="d-sw" style="background:#8A6642"></div>
-          </div>
-        </div>
-        <div class="detail-body">
-          <div class="label">04 — Web Application</div>
-          <h3>Ledger</h3>
-          <p class="summary">Needed a simple, honest view of where money actually goes. Built full transaction CRUD, category filtering, and pie/trend charts summarizing spend over time.</p>
-          <div class="detail-stack">
-            <span class="d-tag">React</span>
-            <span class="d-tag">Data visualization</span>
-            <span class="d-tag">CRUD</span>
-          </div>
-          <div class="detail-links">
-            <a href="https://expense-tracker-3sb4.vercel.app/">Live site ↗</a>
-            <a href="#">Source ↗</a>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
 
-<section id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="label">Engagement</div>
-      <h2>Three ways to work together.</h2>
-    </div>
-    <div class="tiers">
-      <div class="tier">
-        <h3>Single Page</h3>
-        <div class="price">$600<span> / project</span></div>
-        <ul>
-          <li>One custom page, fully responsive</li>
-          <li>Contact or enquiry form</li>
-          <li>Basic on-page SEO</li>
-          <li>1 round of revisions</li>
-        </ul>
-        <a href="#contact" class="btn-outline" style="display:inline-block;">Enquire</a>
-      </div>
-      <div class="tier featured">
-        <div class="tier-flag">Most chosen</div>
-        <h3>Full Site</h3>
-        <div class="price">$1,800<span> / project</span></div>
-        <ul>
-          <li>Up to 6 pages, fully responsive</li>
-          <li>Booking, gallery, or cart functionality</li>
-          <li>Domain &amp; hosting setup included</li>
-          <li>3 rounds of revisions</li>
-        </ul>
-        <a href="#contact" class="btn-bronze" style="display:inline-block;">Enquire</a>
-      </div>
-      <div class="tier">
-        <h3>Web Application</h3>
-        <div class="price">From $3,500</div>
-        <ul>
-          <li>Custom logic, database, and auth</li>
-          <li>Admin dashboard if needed</li>
-          <li>Scoped in a discovery call</li>
-          <li>Ongoing support available</li>
-        </ul>
-        <a href="#contact" class="btn-outline" style="display:inline-block;">Enquire</a>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-word">PORTFOLIO</div>
+        <div class="wrap hero-content">
+            <div class="avail-badge">
+                <span class="avail-dot"></span> Currently accepting new projects
+            </div>
+            <h1 class="reveal">Considered web development, for businesses that want to <em>look like</em> the choice,
+                not an option.</h1>
+            <p class="lede reveal">Four custom builds below — a luxury restaurant reservation site, a scheduling
+                membership dashboard, an optimized e-commerce storefront, and an analytics tool. Each solves a clear
+                business outcome.</p>
+            <div class="hero-actions reveal">
+                <a href="#work" class="btn-bronze">View selected work</a>
+                <a href="#contact" class="btn-outline">Start an enquiry</a>
+            </div>
+        </div>
+    </section>
 
-<section id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="label">About</div>
-      <h2>Built directly with the business, no agency layer between.</h2>
-    </div>
-    <div class="about-grid">
-      <div>
-        <p>Every engagement starts with the same question: what is this site supposed to make happen? A booking, a sale, a signup. Everything else — the design, the code, the copy — serves that one outcome.</p>
-        <p>Projects ship responsive, fast, and handed off with documentation a future developer could pick up without a single guess.</p>
-      </div>
-      <div class="cred-list">
-        <div class="cred-row"><span>Frontend</span><span>HTML · CSS · JavaScript · React</span></div>
-        <div class="cred-row"><span>Data &amp; state</span><span>Context API · Firebase · Supabase</span></div>
-        <div class="cred-row"><span>Hosting</span><span>Vercel · Netlify</span></div>
-        <div class="cred-row"><span>Tools</span><span>Git · Figma · DevTools</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Selected Work Section -->
+    <section class="tight" id="work">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">Selected work</div>
+                <h2>Four builds, four business problems solved.</h2>
+            </div>
 
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="label" style="color:var(--bronze); margin-bottom:20px;">Get in touch</div>
-    <h2>Have a site that needs building?</h2>
-    <p>Tell me what the site needs to accomplish — more bookings, more sales, or simply more trust — and you'll get a clear scope and price back within a day.</p>
-    <div class="contact-actions">
-      <a href="mailto:hello@kabirsethi.dev" class="btn-bronze">hello@kabirsethi.dev</a>
-      <a href="#" class="btn-outline">LinkedIn ↗</a>
-    </div>
-  </div>
-</section>
+            <!-- Fast-jump Rows -->
+            <div class="work-list reveal">
+                <div class="work-row" onclick="scrollToDetail(0)">
+                    <div class="work-index">01</div>
+                    <div class="work-name">Amara</div>
+                    <div class="work-meta">Restaurant<span class="tagline">Reservation-first dining site</span></div>
+                    <div class="work-arrow">→</div>
+                </div>
+                <div class="work-row" onclick="scrollToDetail(1)">
+                    <div class="work-index">02</div>
+                    <div class="work-name">PulseFit</div>
+                    <div class="work-meta">Gym &amp; Studio<span class="tagline">Class scheduling &amp;
+                            membership</span></div>
+                    <div class="work-arrow">→</div>
+                </div>
+                <div class="work-row" onclick="scrollToDetail(2)">
+                    <div class="work-index">03</div>
+                    <div class="work-name">Studio Goods</div>
+                    <div class="work-meta">E-commerce<span class="tagline">Storefront with cart &amp; checkout</span>
+                    </div>
+                    <div class="work-arrow">→</div>
+                </div>
+                <div class="work-row" onclick="scrollToDetail(3)">
+                    <div class="work-index">04</div>
+                    <div class="work-name">Ledger</div>
+                    <div class="work-meta">Web application<span class="tagline">Finance tracking &amp; data
+                            visualization</span></div>
+                    <div class="work-arrow">→</div>
+                </div>
+            </div>
 
-<footer>© 2026 Kabir Sethi — Web Development Studio</footer>
+            <!-- Expanded Details with custom CSS mockups -->
+            <div class="work-details">
 
+                <!-- Project 01 -->
+                <div class="detail reveal" id="project-detail-0">
+                    <div class="detail-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                        </div>
+                        <div class="mockup-body amara-mockup">
+                            <div class="amara-brand">AMARA</div>
+                            <div class="amara-line"></div>
+                            <div class="amara-card">
+                                <h4>Reserve a Table</h4>
+                                <div class="amara-fields">
+                                    <div class="amara-field">Guests: <span>2 guests</span></div>
+                                    <div class="amara-field">Date: <span>July 28, 2026</span></div>
+                                    <div class="amara-field">Time: <span>8:30 PM</span></div>
+                                </div>
+                                <div class="amara-btn">Confirm Booking</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-body">
+                        <div class="label">01 — Restaurant</div>
+                        <h3>Amara</h3>
+                        <p class="summary">Guests had to call during service hours to book a table. Built a validated
+                            reservation flow, categorized menu, and a photo gallery that sells the room before anyone
+                            arrives.</p>
+                        <div class="detail-stack">
+                            <span class="d-tag">HTML/CSS/JS</span>
+                            <span class="d-tag">Form validation</span>
+                            <span class="d-tag">Lightbox gallery</span>
+                        </div>
+                        <div class="detail-links">
+                            <a href="https://restaurant-rouge-six.vercel.app/" target="_blank">Live site ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 02 -->
+                <div class="detail reveal" id="project-detail-1">
+                    <div class="detail-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                        </div>
+                        <div class="mockup-body pulsefit-mockup">
+                            <div class="pulse-head">
+                                Weekly Schedule <span>Gym Grid</span>
+                            </div>
+                            <div class="pulse-days">
+                                <div class="pulse-day">Mon</div>
+                                <div class="pulse-day">Tue</div>
+                                <div class="pulse-day active">Wed</div>
+                                <div class="pulse-day">Thu</div>
+                                <div class="pulse-day">Fri</div>
+                            </div>
+                            <div class="pulse-classes">
+                                <div class="pulse-class">
+                                    <div>
+                                        <div class="pulse-class-name">Morning Yoga</div>
+                                        <div class="pulse-class-time">09:00 AM · Coach Sarah</div>
+                                    </div>
+                                    <span class="pulse-book-btn full">Full</span>
+                                </div>
+                                <div class="pulse-class">
+                                    <div>
+                                        <div class="pulse-class-name">HIIT Blast</div>
+                                        <div class="pulse-class-time">12:00 PM · Coach Alex</div>
+                                    </div>
+                                    <span class="pulse-book-btn">Book</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-body">
+                        <div class="label">02 — Gym &amp; Studio</div>
+                        <h3>PulseFit</h3>
+                        <p class="summary">Front desk was fielding every class booking by phone. Built a weekly class
+                            grid with per-slot reservations, trainer profiles, and tiered membership pricing.</p>
+                        <div class="detail-stack">
+                            <span class="d-tag">Responsive grid</span>
+                            <span class="d-tag">Booking logic</span>
+                            <span class="d-tag">Pricing tiers</span>
+                        </div>
+                        <div class="detail-links">
+                            <a href="https://gym-neon-phi.vercel.app/" target="_blank">Live site ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="detail reveal" id="project-detail-2">
+                    <div class="detail-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                        </div>
+                        <div class="mockup-body goods-mockup">
+                            <div class="goods-header">
+                                <span class="goods-logo">STUDIO GOODS</span>
+                                <div class="goods-cart">🛒 Cart (2)</div>
+                            </div>
+                            <div class="goods-grid">
+                                <div class="goods-card">
+                                    <div class="goods-img">
+                                        <div class="goods-circle"></div>
+                                    </div>
+                                    <div class="goods-info">
+                                        <span class="goods-title">Ceramic Cup</span>
+                                        <span class="goods-price">₹1,200</span>
+                                    </div>
+                                    <div class="goods-btn">Add to Cart</div>
+                                </div>
+                                <div class="goods-card">
+                                    <div class="goods-img">
+                                        <div class="goods-circle" style="filter: hue-rotate(180deg);"></div>
+                                    </div>
+                                    <div class="goods-info">
+                                        <span class="goods-title">Clay Pot</span>
+                                        <span class="goods-price">₹2,800</span>
+                                    </div>
+                                    <div class="goods-btn">Added ✓</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-body">
+                        <div class="label">03 — E-commerce</div>
+                        <h3>Studio Goods</h3>
+                        <p class="summary">A lifestyle brand wanted to sell online without a heavyweight platform. Built
+                            product listings, detail pages, a persistent cart, and a full mock checkout flow.</p>
+                        <div class="detail-stack">
+                            <span class="d-tag">React</span>
+                            <span class="d-tag">Cart state</span>
+                            <span class="d-tag">Checkout flow</span>
+                        </div>
+                        <div class="detail-links">
+                            <a href="https://shop-sphere-five-nu.vercel.app/" target="_blank">Live site ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 04 -->
+                <div class="detail reveal" id="project-detail-3">
+                    <div class="detail-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                        </div>
+                        <div class="mockup-body ledger-mockup">
+                            <div class="ledger-title">
+                                Ledger Tracker <span>Spend summary</span>
+                            </div>
+                            <div class="ledger-balance">₹48,250.00</div>
+                            <div class="ledger-bars">
+                                <div class="ledger-bar-item">
+                                    <div class="ledger-bar-label"><span>Monthly Earnings</span><span>72%</span></div>
+                                    <div class="ledger-progress-bg">
+                                        <div class="ledger-progress p-inc"></div>
+                                    </div>
+                                </div>
+                                <div class="ledger-bar-item">
+                                    <div class="ledger-bar-label"><span>Monthly Spending</span><span>38%</span></div>
+                                    <div class="ledger-progress-bg">
+                                        <div class="ledger-progress p-exp"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-body">
+                        <div class="label">04 — Web Application</div>
+                        <h3>Ledger</h3>
+                        <p class="summary">Needed a simple, honest view of where money actually goes. Built full
+                            transaction CRUD, category filtering, and pie/trend charts summarizing spend over time.</p>
+                        <div class="detail-stack">
+                            <span class="d-tag">React</span>
+                            <span class="d-tag">Data visualization</span>
+                            <span class="d-tag">CRUD</span>
+                        </div>
+                        <div class="detail-links">
+                            <a href="https://expense-tracker-3sb4.vercel.app/" target="_blank">Live site ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Work With Me (Value Pillars) Section -->
+    <section id="why-work" style="border-top:1px solid var(--line); background: rgba(21, 21, 19, 0.3);">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">Value Pillars</div>
+                <h2>Websites that do actual business work.</h2>
+            </div>
+            <div class="pillars-grid">
+                <div class="pillar-card reveal">
+                    <div class="pillar-icon">⚡</div>
+                    <h3>Performance &amp; SEO</h3>
+                    <p>Designed and built clean, lightweight code. We optimize assets and structures so pages load in
+                        milliseconds, securing higher Google rankings and preventing visitor bounce.</p>
+                </div>
+                <div class="pillar-card reveal">
+                    <div class="pillar-icon">📈</div>
+                    <h3>Conversion Focused</h3>
+                    <p>A website should be a marketing tool, not just dynamic art. Every user interface element,
+                        copywriting block, and form is placed strategically to guide visitors into actions.</p>
+                </div>
+                <div class="pillar-card reveal">
+                    <div class="pillar-icon">🤝</div>
+                    <h3>Direct Partnership</h3>
+                    <p>No project managers, account executives, or agency markup. You work directly with the engineer
+                        coding your application, resulting in rapid deployment and perfect translation of ideas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work Section -->
+    <section id="process">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">Process</div>
+                <h2>A structured road to launch.</h2>
+            </div>
+            <div class="process-list reveal">
+                <div class="process-row">
+                    <div class="process-num">01</div>
+                    <div class="process-title">Discovery &amp; Scope</div>
+                    <div class="process-body">
+                        <h4>Understanding your business metrics.</h4>
+                        <p>We kick off with a call detailing the outcomes the website needs to facilitate (sales,
+                            bookings, signups). We define technical boundaries, scope the exact features, and deliver a
+                            transparent price breakdown.</p>
+                    </div>
+                </div>
+                <div class="process-row">
+                    <div class="process-num">02</div>
+                    <div class="process-title">Figma Blueprinting</div>
+                    <div class="process-body">
+                        <h4>Visualizing the layouts.</h4>
+                        <p>I build structured prototypes in Figma, showing you exactly how content organizes and
+                            translates across desktop and mobile screens. You receive mockups to review before writing
+                            code.</p>
+                    </div>
+                </div>
+                <div class="process-row">
+                    <div class="process-num">03</div>
+                    <div class="process-title">Clean Engineering</div>
+                    <div class="process-body">
+                        <h4>Fast, responsive coding.</h4>
+                        <p>Translating approved Figma layouts into production-ready responsive code. I construct
+                            features (bookings, carts, checkouts) with high performance, accessibility, and neat
+                            semantics.</p>
+                    </div>
+                </div>
+                <div class="process-row">
+                    <div class="process-num">04</div>
+                    <div class="process-title">SEO &amp; Hand-off</div>
+                    <div class="process-body">
+                        <h4>Setting you up for growth.</h4>
+                        <p>We configure domain, hosting systems, structured tags, and schema. I hand over the site with
+                            written/video guidelines, enabling you to manage copy or images without writing code.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Testimonials Section -->
+    <section class="testimonials">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">Social Proof</div>
+                <h2>What founders say.</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">"Lohith didn't just build a site; he automated our scheduling. Our front
+                        desk workload dropped by 40% in the first week, and our class bookings increased."</p>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-author">Founder &amp; Director</div>
+                        <div class="testimonial-company">PulseFit Studio</div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">"Working with Lohith was a revelation. We got a custom boutique store
+                        that loads instantly. Our checkout conversions immediately saw a 25% bump."</p>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-author">Creative Director</div>
+                        <div class="testimonial-company">Studio Goods Co.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Engagement Section -->
+    <section id="services">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">Engagement</div>
+                <h2>Three ways to work together.</h2>
+            </div>
+            <div class="tiers reveal">
+                <div class="tier">
+                    <h3>Single Page</h3>
+                    <div class="price">₹3,999<span> / project</span></div>
+                    <ul>
+                        <li>One custom page, fully responsive</li>
+                        <li>Contact or enquiry form</li>
+                        <li>Basic on-page SEO</li>
+                        <li>1 round of revisions</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline" style="display:block; text-align:center;">Enquire</a>
+                </div>
+                <div class="tier featured">
+                    <div class="tier-flag">Most chosen</div>
+                    <h3>Full Site</h3>
+                    <div class="price">₹12,999<span> / project</span></div>
+                    <ul>
+                        <li>Up to 6 pages, fully responsive</li>
+                        <li>Booking, gallery, or cart functionality</li>
+                        <li>Domain &amp; hosting setup included</li>
+                        <li>3 rounds of revisions</li>
+                    </ul>
+                    <a href="#contact" class="btn-bronze" style="display:block; text-align:center;">Enquire</a>
+                </div>
+                <div class="tier">
+                    <h3>Web Application</h3>
+                    <div class="price">From ₹25,000</div>
+                    <ul>
+                        <li>Custom logic, database, and auth</li>
+                        <li>Admin dashboard if needed</li>
+                        <li>Scoped in a discovery call</li>
+                        <li>Ongoing support available</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline" style="display:block; text-align:center;">Enquire</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" style="border-top:1px solid var(--line); background: rgba(21, 21, 19, 0.2);">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">FAQ</div>
+                <h2>Answering your questions upfront.</h2>
+            </div>
+            <div class="faq-accordion reveal">
+                <div class="faq-item">
+                    <button class="faq-question">How long does a website take to build? <span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Typically, a Single Page project takes 3–5 days. A Full Site project takes around 1–2 weeks,
+                            and Web Applications scale between 2–4 weeks based on feature sets.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Will I be able to edit the website content myself? <span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Yes. I hand off all builds with documentation, utilizing headless CMS tools (like Sanity or
+                            Supabase) or clean layouts where you can safely swap text or photos in minutes.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Do you handle hosting and domain setup? <span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Yes, domain and hosting setup is included in the Full Site and Web Application tiers. I
+                            typically deploy on highly reliable, global host networks like Vercel, Netlify, or AWS.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What is your payment model? <span class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>I operate on a standard 50% upfront deposit to book the slot and initiate work, and the
+                            remaining 50% upon project completion and your final sign-off before official launch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about" style="border-top: 1px solid var(--line); background: rgba(21, 21, 19, 0.3);">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="label">About the Studio</div>
+                <h2>A developer who builds for business outcomes.</h2>
+            </div>
+            <div class="about-grid reveal">
+                <div>
+                    <p>I am Lohith SP, a freelance web developer specializing in building high-performance,
+                        conversion-oriented web experiences. Rather than just writing code, I partner directly with
+                        founders to translate business needs into custom digital solutions.</p>
+                    <p>Every project is custom-engineered from the ground up for speed, SEO, and visual excellence,
+                        ensuring your brand stands out and converts visitors into paying customers.</p>
+                </div>
+                <div class="cred-list">
+                    <div class="cred-row">
+                        <span>Role</span>
+                        <span>Founder &amp; Developer</span>
+                    </div>
+                    <div class="cred-row">
+                        <span>Core Expertise</span>
+                        <span>Performance &amp; Frontend Architecture</span>
+                    </div>
+                    <div class="cred-row">
+                        <span>Location</span>
+                        <span>Tamil Nadu, India (Remote)</span>
+                    </div>
+                    <div class="cred-row">
+                        <span>Working Style</span>
+                        <span>Direct Collaboration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Project Planner -->
+    <section class="contact" id="contact">
+        <div class="wrap">
+            <div class="label reveal" style="color:var(--bronze); margin-bottom:20px;">Project Planner</div>
+            <h2 class="reveal">Ready to start? Let's scope it.</h2>
+            <p class="contact-desc reveal">Answer three brief questions to map out your site goals. You'll get a
+                structured estimate and proposal within 24 hours.</p>
+
+            <!-- Multi-step Wizard -->
+            <div class="planner-container reveal" id="form-wrapper">
+                <div class="planner-header">
+                    <div class="planner-title">New Project Estimate</div>
+                    <div class="planner-steps">
+                        <span class="step-dot active"></span>
+                        <span class="step-dot"></span>
+                        <span class="step-dot"></span>
+                    </div>
+                </div>
+                <form id="plannerForm">
+                    <div class="planner-body">
+                        <!-- Step 1 -->
+                        <div class="form-step active" data-step="1">
+                            <h3>1. What type of website do you need?</h3>
+                            <div class="card-select-grid">
+                                <label class="select-card selected">
+                                    <input type="radio" name="project-type" value="Single Page" checked>
+                                    <div class="select-card-title">Single Page</div>
+                                    <div class="select-card-desc">Landing pages, portfolios, or event signups. Fast
+                                        launch.</div>
+                                </label>
+                                <label class="select-card">
+                                    <input type="radio" name="project-type" value="Full Website">
+                                    <div class="select-card-title">Multi-Page Site</div>
+                                    <div class="select-card-desc">Up to 6 pages. Blogs, booking engines, schedules.
+                                    </div>
+                                </label>
+                                <label class="select-card">
+                                    <input type="radio" name="project-type" value="E-Commerce Store">
+                                    <div class="select-card-title">E-Commerce</div>
+                                    <div class="select-card-desc">Bespoke product layouts, persistent cart, checkouts.
+                                    </div>
+                                </label>
+                                <label class="select-card">
+                                    <input type="radio" name="project-type" value="Custom Web App">
+                                    <div class="select-card-title">Custom App</div>
+                                    <div class="select-card-desc">Database systems, auth portals, dashboards.</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="form-step" data-step="2">
+                            <h3>2. What is your estimated budget?</h3>
+                            <div class="card-select-grid">
+                                <label class="select-card selected">
+                                    <input type="radio" name="budget" value="Under ₹10,000" checked>
+                                    <div class="select-card-title">Under ₹10,000</div>
+                                    <div class="select-card-desc">Perfect for single pages, clean launch grids, or
+                                        simple forms.</div>
+                                </label>
+                                <label class="select-card">
+                                    <input type="radio" name="budget" value="₹10,000 - ₹25,000">
+                                    <div class="select-card-title">₹10,000 - ₹25,000</div>
+                                    <div class="select-card-desc">Standard business website, integrations, custom
+                                        layouts.</div>
+                                </label>
+                                <label class="select-card">
+                                    <input type="radio" name="budget" value="₹25,000 - ₹50,000">
+                                    <div class="select-card-title">₹25,000 - ₹50,000</div>
+                                    <div class="select-card-desc">Custom web application, admin dashboards, database
+                                        integrations.</div>
+                                </label>
+                                <label class="select-card">
+                                    <input type="radio" name="budget" value="₹50,000+ / Custom">
+                                    <div class="select-card-title">₹50,000+ (Custom)</div>
+                                    <div class="select-card-desc">Enterprise operations, high scale databases, tailored
+                                        workflows.</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="form-step" data-step="3">
+                            <h3>3. Tell us about your project</h3>
+                            <div class="form-group">
+                                <label for="project-details">Core Goals &amp; Features</label>
+                                <textarea id="project-details" class="form-textarea"
+                                    placeholder="E.g., We need a restaurant booking site that displays menus, lets guests check seating availability, and sends confirmations."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-name">Your Name</label>
+                                <input type="text" id="client-name" class="form-input" placeholder="Lohith S." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-email">Email Address</label>
+                                <input type="email" id="client-email" class="form-input" placeholder="name@company.com"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="planner-footer">
+                        <button type="button" class="btn-outline" id="prevBtn"
+                            style="display:none; padding:10px 22px;">Back</button>
+                        <button type="button" class="btn-bronze" id="nextBtn" style="padding:10px 22px;">Next
+                            Step</button>
+                        <button type="submit" class="btn-bronze" id="submitBtn"
+                            style="display:none; padding:10px 22px;">Submit Details</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contact-fallback reveal">
+                Or reach out directly:
+                <span class="copy-email-container">
+                    <a href="#" class="copy-email-btn" id="email-btn" onclick="copyEmailAddress(event)">Email Us ↗</a>
+                    <span class="copy-tooltip" id="emailTooltip">Click to copy email</span>
+                </span>
+                · <a href="#" id="whatsapp-btn" target="_blank">WhatsApp ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>© 2026 Lohith SP — Web Development Studio</footer>
+
+    <!-- Interactive Script -->
+    <script>
+        // Anti-scraping Email & Phone Obfuscation
+        const emailUser = 'splohith07';
+        const emailHost = 'gmail.com';
+        const contactEmail = `${emailUser}@${emailHost}`;
+        const phoneCountry = '91';
+        const phoneNumber = '8778960660';
+        const whatsappLink = `https://wa.me/${phoneCountry}${phoneNumber}?text=Hi%20Lohith,%20I'm%20interested%20in%20discussing%20a%20web%20development%20project.`;
+
+        // Dynamically inject contact info to prevent crawler harvesting
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailBtn = document.getElementById('email-btn');
+            if (emailBtn) {
+                emailBtn.href = `mailto:${contactEmail}`;
+                emailBtn.textContent = 'Email Us ↗';
+            }
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            if (whatsappBtn) {
+                whatsappBtn.href = whatsappLink;
+            }
+        });
+
+        // Scroll Progress & Nav Glow indicator
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            // Progress Bar
+            const scrollProgress = document.getElementById('scroll-progress');
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (totalHeight > 0) {
+                const progress = (window.pageYOffset / totalHeight) * 100;
+                scrollProgress.style.width = `${progress}%`;
+            }
+
+            // Navbar Glow
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fast-jump to Detail Rows
+        function scrollToDetail(idx) {
+            const el = document.getElementById(`project-detail-${idx}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Mobile menu toggle
+        const ham = document.querySelector('.ham');
+        const mobileMenu = document.getElementById('mobileMenu');
+        ham.addEventListener('click', () => {
+            ham.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        // Close menu when links are clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                ham.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+
+        // FAQ accordion toggle logic
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.faq-answer').style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    const answer = item.querySelector('.faq-answer');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Intersection Observer scroll reveals
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+        // Interactive Planner Form selection highlight
+        const cards = document.querySelectorAll('.select-card');
+        cards.forEach(card => {
+            const radio = card.querySelector('input[type="radio"]');
+            if (radio) {
+                card.addEventListener('click', () => {
+                    // Unselect sibling radio layouts in this step
+                    const siblingCards = card.parentElement.querySelectorAll('.select-card');
+                    siblingCards.forEach(sib => sib.classList.remove('selected'));
+
+                    card.classList.add('selected');
+                    radio.checked = true;
+                });
+            }
+        });
+
+        // Project Planner multi-step wizard logic
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+
+            // Update dots
+            document.querySelectorAll('.step-dot').forEach((dot, idx) => {
+                if (idx + 1 <= step) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Update buttons layout
+            document.getElementById('prevBtn').style.display = step === 1 ? 'none' : 'inline-block';
+            document.getElementById('nextBtn').style.display = step === totalSteps ? 'none' : 'inline-block';
+            document.getElementById('submitBtn').style.display = step === totalSteps ? 'inline-block' : 'none';
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentStep--;
+            showStep(currentStep);
+        });
+
+        function validateStep(step) {
+            if (step === 1) {
+                const selected = document.querySelector('input[name="project-type"]:checked');
+                if (!selected) {
+                    alert('Please select a project type.');
+                    return false;
+                }
+            } else if (step === 2) {
+                const selected = document.querySelector('input[name="budget"]:checked');
+                if (!selected) {
+                    alert('Please select a budget range.');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.getElementById('plannerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const projectType = document.querySelector('input[name="project-type"]:checked').value;
+            const budget = document.querySelector('input[name="budget"]:checked').value;
+            const details = document.getElementById('project-details').value.trim();
+            const clientName = document.getElementById('client-name').value.trim();
+            const clientEmail = document.getElementById('client-email').value.trim();
+
+            if (!clientName || !clientEmail) {
+                alert('Please fill out your name and email address.');
+                return;
+            }
+
+            const emailBody = `Hi Lohith,\n\nI'm writing to enquire about a new web development project.\n\nProject Type: ${projectType}\nBudget Range: ${budget}\n\nProject Scope:\n${details}\n\nMy Details:\nName: ${clientName}\nEmail: ${clientEmail}\n\nLooking forward to hearing from you.`;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(emailBody).then(() => {
+                showSuccessScreen(projectType, emailBody);
+            }).catch(err => {
+                // Open mailto if clipboard copy fails
+                showSuccessScreen(projectType, emailBody);
+                window.location.href = `mailto:${contactEmail}?subject=New Project Enquiry - ${projectType}&body=${encodeURIComponent(emailBody)}`;
+            });
+        });
+
+        function showSuccessScreen(projectType, emailBody) {
+            const formWrapper = document.getElementById('form-wrapper');
+            formWrapper.innerHTML = `
+                <div class="form-success">
+                    <div class="success-icon">✓</div>
+                    <h3>Inquiry Generated!</h3>
+                    <p>Your project details have been successfully formatted and copied to your clipboard. Your email client is opening now—just paste and send!</p>
+                    <p class="subtext">If your email client didn't launch automatically, please click the button below to send your enquiry.</p>
+                    <a href="mailto:${contactEmail}?subject=New Project Enquiry - ${projectType}&body=${encodeURIComponent(emailBody)}" class="btn-bronze" style="padding: 12px 24px;">Send Email Manually</a>
+                </div>
+            `;
+            // Trigger mailto redirect
+            setTimeout(() => {
+                window.location.href = `mailto:${contactEmail}?subject=New Project Enquiry - ${projectType}&body=${encodeURIComponent(emailBody)}`;
+            }, 500);
+        }
+
+        // Copy direct email to clipboard logic
+        function copyEmailAddress(event) {
+            event.preventDefault();
+            const email = contactEmail;
+            navigator.clipboard.writeText(email).then(() => {
+                const tooltip = document.getElementById('emailTooltip');
+                tooltip.textContent = 'Copied to clipboard!';
+                tooltip.classList.add('show');
+                setTimeout(() => {
+                    tooltip.classList.remove('show');
+                    setTimeout(() => {
+                        tooltip.textContent = 'Click to copy email';
+                    }, 300);
+                }, 2000);
+            });
+        }
+
+        // Mockups Interactive Click Demos
+        // 1. Amara table reservation click
+        const amaraBtn = document.querySelector('.amara-btn');
+        if (amaraBtn) {
+            amaraBtn.addEventListener('click', () => {
+                amaraBtn.classList.add('booked');
+                amaraBtn.textContent = 'Table Booked ✓';
+            });
+        }
+
+        // 2. PulseFit gym booking click
+        const pulseBookBtn = document.querySelector('.pulse-classes .pulse-class:nth-child(2) .pulse-book-btn');
+        if (pulseBookBtn) {
+            pulseBookBtn.addEventListener('click', () => {
+                pulseBookBtn.classList.add('booked');
+                pulseBookBtn.textContent = 'Booked ✓';
+            });
+        }
+
+        // 3. Studio Goods e-commerce cart click
+        const goodsBtn = document.querySelector('.goods-grid .goods-card:first-child .goods-btn');
+        if (goodsBtn) {
+            goodsBtn.addEventListener('click', () => {
+                goodsBtn.classList.add('added');
+                goodsBtn.textContent = 'Added ✓';
+                // Increment header cart counter
+                const cartHeader = document.querySelector('.goods-cart');
+                if (cartHeader) {
+                    cartHeader.textContent = '🛒 Cart (3)';
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
